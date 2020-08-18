@@ -30,8 +30,6 @@ function App() {
     return () => socket.disconnect();
   }, []);
 
-  // useEffect(() => console.log(chats), [chats]);
-
   return (
     <div className="container">
       <div className="content">
