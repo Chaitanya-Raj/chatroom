@@ -3,36 +3,44 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
-var indexRouter = require("./routes/index");
-
 var app = express();
 
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
 
-app.use(logger("dev"));
+// app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "/client/build")));
 
-app.use("/", indexRouter);
-
-io.sockets.on("connection", function (socket) {
-  socket.on("username", function (username) {
+io.sockets.on("connection", (socket) => {
+  socket.on("username", (username) => {
     socket.username = username;
-    io.emit("is_online", "🔵 <i>" + socket.username + " join the chat..</i>");
+    console.log(`User connected: ${socket.username}`);
+    io.emit("is_online", {
+      type: "status",
+      user: socket.username,
+      action: "joined",
+    });
   });
 
-  socket.on("disconnect", function (username) {
-    io.emit("is_online", "🔴 <i>" + socket.username + " left the chat..</i>");
+  socket.on("disconnect", (username) => {
+    console.log("disconneted");
+    io.emit("is_online", {
+      type: "status",
+      user: socket.username,
+      action: "left",
+    });
   });
 
-  socket.on("chat_message", function (message) {
-    io.emit(
-      "chat_message",
-      "<strong>" + socket.username + "</strong>: " + message
-    );
+  socket.on("chat_message", (message) => {
+    console.log(message);
+    io.emit("chat_message", {
+      type: "message",
+      user: socket.username,
+      message,
+    });
   });
 });
 
