@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #222;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+form {
+  background: #222;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  border-radius: 10px;
+}
+
+form input {
+  background: #444;
+  color: #eee;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1rem;
+  border: 0;
+  padding: 0 20px;
+  height: 7vh;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+#messages {
+  display: flex;
+  flex-direction: column;
+  width: 60vw;
+  margin: 0;
+  margin-bottom: 10vh;
+  padding: 0;
+}
+
+.status {
+  margin: 10px;
+  width: 100%;
+  padding: 7px 15px;
+  background: #eee;
+}
+
+.message {
+  font-size: 1rem;
+  margin: 10px;
+  width: 40vw;
+  padding: 20px 20px;
+  background: #eee;
+  overflow-wrap: break-word;
+}
+
+@media screen and (max-width: 500px) {
+}
