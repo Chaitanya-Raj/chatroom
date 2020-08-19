@@ -1,6 +1,7 @@
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
+var cors = require("cors");
 var logger = require("morgan");
 
 var app = express();
@@ -12,6 +13,7 @@ var io = require("socket.io")(server);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors());
 app.use(express.static(path.join(__dirname, "/client/build")));
 
 io.sockets.on("connection", (socket) => {
@@ -42,6 +44,15 @@ io.sockets.on("connection", (socket) => {
       message,
     });
   });
+});
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
 });
 
 //Static file declaration
