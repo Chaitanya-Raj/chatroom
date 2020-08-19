@@ -71,10 +71,11 @@ function App() {
               );
             } else
               return (
-                <div
-                  className="status"
-                  key={index}
-                >{`${chat.user} has ${chat.action}`}</div>
+                <div className="status" key={index}>
+                  {chat.user === username
+                    ? `You have ${chat.action} the chat`
+                    : `${chat.user} has ${chat.action} the chat`}
+                </div>
               );
           })}
         </div>

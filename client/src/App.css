@@ -107,10 +107,10 @@ input:focus {
   color: #dddad6;
 }
 
-.status::before,
+/* .status::before,
 .status:after {
   content: "  ---------  ";
-}
+} */
 
 .message {
   font-size: 1rem;
