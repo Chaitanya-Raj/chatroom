@@ -7,14 +7,10 @@ const socket = io.connect("http://localhost:5000");
 function App() {
   const [msg, setMsg] = useState("");
   const [chats, setChats] = useState([]);
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(null);
+  const [nickname, setNickname] = useState("");
 
   useEffect(() => {
-    let user = prompt("Please tell me your name");
-    socket.emit("username", user);
-    setUsername(user);
-    console.log("username", user);
-
     socket.on("is_online", (status) => {
       setChats((p) => [...p, status]);
       console.log("status", status);
@@ -29,6 +25,32 @@ function App() {
 
     return () => socket.disconnect();
   }, []);
+
+  if (!username) {
+    return (
+      <div className="nickname">
+        <form
+          id="nickname-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            socket.emit("username", nickname);
+            console.log("username", nickname);
+            setUsername(nickname);
+          }}
+        >
+          <label htmlFor="nickname">What's your name?</label>
+          <input
+            type="text"
+            name="nickname"
+            id="nickname"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            autoFocus
+          />
+        </form>
+      </div>
+    );
+  }
 
   return (
     <div className="container">
@@ -54,6 +76,7 @@ function App() {
         </div>
       </div>
       <form
+        id="message-form"
         onSubmit={(e) => {
           e.preventDefault();
           socket.emit("chat_message", msg);
@@ -62,7 +85,7 @@ function App() {
         }}
       >
         <input
-          id="input"
+          id="message-input"
           autoComplete="off"
           autoFocus="on"
           placeholder="type your message here..."

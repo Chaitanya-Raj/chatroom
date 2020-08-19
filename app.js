@@ -26,7 +26,7 @@ io.sockets.on("connection", (socket) => {
   });
 
   socket.on("disconnect", (username) => {
-    console.log("disconneted");
+    console.log(`${socket.username} Disconnected`);
     io.emit("is_online", {
       type: "status",
       user: socket.username,
@@ -35,7 +35,7 @@ io.sockets.on("connection", (socket) => {
   });
 
   socket.on("chat_message", (message) => {
-    console.log(message);
+    console.log(`${socket.username} : ${message}`);
     io.emit("chat_message", {
       type: "message",
       user: socket.username,

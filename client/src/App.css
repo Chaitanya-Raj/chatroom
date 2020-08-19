@@ -18,7 +18,41 @@ body {
   display: none;
 }
 
-form {
+.nickname {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#nickname-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 70%;
+}
+
+#nickname-form label {
+  color: #eee;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 3rem;
+}
+
+#nickname-form input {
+  margin: 50px;
+  width: 100%;
+  height: 10vh;
+  font-size: 2rem;
+  padding: 20px;
+  text-align: center;
+  background: #333;
+  color: #eee;
+  border: 0;
+}
+
+#message-form {
   background: #222;
   padding: 10px;
   position: fixed;
@@ -27,7 +61,7 @@ form {
   border-radius: 10px;
 }
 
-form input {
+#message-form input {
   background: #444;
   color: #eee;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
