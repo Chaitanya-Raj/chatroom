@@ -13,13 +13,13 @@ function App() {
   useEffect(() => {
     socket.on("is_online", (status) => {
       setChats((p) => [...p, status]);
-      console.log("status", status);
+      // console.log("status", status);
       window.scrollTo(0, document.body.scrollHeight);
     });
 
     socket.on("chat_message", (msg) => {
       setChats((p) => [...p, msg]);
-      console.log("msg", msg);
+      // console.log("msg", msg);
       window.scrollTo(0, document.body.scrollHeight);
     });
 
@@ -33,9 +33,11 @@ function App() {
           id="nickname-form"
           onSubmit={(e) => {
             e.preventDefault();
-            socket.emit("username", nickname);
-            console.log("username", nickname);
-            setUsername(nickname);
+            if (nickname !== "") {
+              socket.emit("username", nickname);
+              // console.log("username", nickname);
+              setUsername(nickname);
+            }
           }}
         >
           <label htmlFor="nickname">What's your name?</label>
@@ -46,6 +48,7 @@ function App() {
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
             autoFocus
+            maxLength="20"
           />
         </form>
       </div>
@@ -60,10 +63,11 @@ function App() {
             if (chat.type === "message") {
               let self = chat.user === username ? "self" : "";
               return (
-                <div
-                  className={`message ${self}`}
-                  key={index}
-                >{`${chat.user} : ${chat.message}`}</div>
+                <div className={`message ${self}`} key={index}>
+                  {chat.user === username
+                    ? `${chat.message}`
+                    : `${chat.user} : ${chat.message}`}
+                </div>
               );
             } else
               return (
@@ -79,9 +83,10 @@ function App() {
         id="message-form"
         onSubmit={(e) => {
           e.preventDefault();
-          socket.emit("chat_message", msg);
-          setMsg("");
-          return false;
+          if (msg !== "") {
+            socket.emit("chat_message", msg);
+            setMsg("");
+          }
         }}
       >
         <input

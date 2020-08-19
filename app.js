@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, "/client/build")));
 io.sockets.on("connection", (socket) => {
   socket.on("username", (username) => {
     socket.username = username;
-    console.log(`User connected: ${socket.username}`);
+    // console.log(`User connected: ${socket.username}`);
     io.emit("is_online", {
       type: "status",
       user: socket.username,
@@ -28,16 +28,17 @@ io.sockets.on("connection", (socket) => {
   });
 
   socket.on("disconnect", (username) => {
-    console.log(`${socket.username} Disconnected`);
-    io.emit("is_online", {
-      type: "status",
-      user: socket.username,
-      action: "left",
-    });
+    // console.log(`${socket.username} Disconnected`);
+    if (socket.username !== undefined)
+      io.emit("is_online", {
+        type: "status",
+        user: socket.username,
+        action: "left",
+      });
   });
 
   socket.on("chat_message", (message) => {
-    console.log(`${socket.username} : ${message}`);
+    // console.log(`${socket.username} : ${message}`);
     io.emit("chat_message", {
       type: "message",
       user: socket.username,
