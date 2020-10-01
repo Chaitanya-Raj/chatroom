@@ -1,4 +1,4 @@
-# React Chat
+# Chatroom
 
 A simple chatroom made using React, Express and Socket.IO
 
