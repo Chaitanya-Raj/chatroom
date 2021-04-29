@@ -62,12 +62,17 @@ function App() {
           {chats.map((chat, index) => {
             if (chat.type === "message") {
               let self = chat.user === username ? "self" : "";
+              let chatNameAlign =
+                chat.user === username ? "chat-name-self" : "chat-name";
               return (
-                <div className={`message ${self}`} key={index}>
-                  {chat.user === username
-                    ? `${chat.message}`
-                    : `${chat.user} : ${chat.message}`}
-                </div>
+                <>
+                  <div className={`${chatNameAlign}`} key={index}>
+                    {chat.user}
+                  </div>
+                  <div className={`message ${self}`} key={index}>
+                    {`${chat.message}`}
+                  </div>
+                </>
               );
             } else
               return (

@@ -105,6 +105,7 @@ input:focus {
   padding: 7px 15px;
   text-align: center;
   color: #dddad6;
+  font-size: smaller;
 }
 
 /* .status::before,
@@ -114,20 +115,33 @@ input:focus {
 
 .message {
   font-size: 1rem;
-  margin: 10px;
+  margin: 5px 10px 10px;
   width: 40vw;
   padding: 15px 30px;
   background: #33373a;
   color: #d3cfc9;
   overflow-wrap: break-word;
-  border-radius: 30px 30px 30px 0;
+  border-radius: 25px;
 }
 
 .self {
   align-self: flex-end;
   color: #222;
   background: #bbb;
-  border-radius: 30px 30px 0 30px;
+}
+
+.chat-name {
+  font-size: x-small;
+  color: #d3cfc9;
+  text-align: left;
+  padding-left: 30px;
+}
+
+.chat-name-self {
+  font-size: x-small;
+  color: #d3cfc9;
+  text-align: right;
+  padding-right: 30px;
 }
 
 @media screen and (max-width: 500px) {
